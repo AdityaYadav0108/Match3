@@ -1,6 +1,8 @@
 import * as PIXI from "pixi.js";
 import { App } from "../system/App";
-import { Field } from "./field";
+import { Field } from "./Field";
+import { Tile } from "./Tile";
+import { TileFactory } from "./TileFactory";
 
 export class Board {
   constructor() {
@@ -14,6 +16,7 @@ export class Board {
 
   create() {
     this.createFields();
+    this.createTiles();
   }
 
   createFields() {
@@ -30,6 +33,19 @@ export class Board {
     this.container.addChild(field.sprite);
   }
 
+  createTiles(){
+    console.log(this.fields)
+    this.fields.forEach(field => {
+      this.createTile(field);
+    })
+  }
+
+  createTile(field){
+    const tile = TileFactory.generate();
+    field.setTile(tile);
+    this.container.addChild(tile.sprite);
+  }
+  
   adjustPosition() {
     this.fieldSize = this.fields[0].sprite.width;
     this.width = this.rows * this.fieldSize;

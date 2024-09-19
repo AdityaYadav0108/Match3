@@ -1,7 +1,7 @@
 import { App } from "../system/App";
 import { Scene } from "../system/Scene";
 import { Board } from "./Board";
-import { Field } from "./field";
+import { Field } from "./Field";
 
 export class Game extends Scene {
     create() {
