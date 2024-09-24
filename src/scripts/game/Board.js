@@ -44,6 +44,10 @@ export class Board {
     const tile = TileFactory.generate();
     field.setTile(tile);
     this.container.addChild(tile.sprite);
+    tile.sprite.interactive = true;
+    tile.sprite.on("pointerdown", () => {
+      this.container.emit("tile-tile-start", tile);
+    })
   }
   
   adjustPosition() {
@@ -54,5 +58,16 @@ export class Board {
       (window.innerWidth - this.width) / 2 + this.fieldSize / 2;
     this.container.y =
       (window.innerHeight - this.height) / 2 + this.fieldSize / 2;
+  }
+
+  swap(tile1, tile2){
+    const tile1Field = tile1.field;
+    const tile2Field = tile2.field;
+
+    tile1Field.tile = tile2;
+    tile2.field = tile1Field;
+
+    tile2Field.tile = tile1;
+    tile1.field = tile2Field;
   }
 }
