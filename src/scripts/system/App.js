@@ -31,6 +31,7 @@ class Application {
     }
 
     start() {
+        
         this.scenes.start("Game");
     }
 }

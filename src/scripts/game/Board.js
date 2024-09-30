@@ -70,4 +70,8 @@ export class Board {
     tile2Field.tile = tile1;
     tile1.field = tile2Field;
   }
+
+  getField(row, col){
+    return this.fields.find(field => field.row === row && field.col === col);
+  }
 }

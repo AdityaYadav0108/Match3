@@ -34,4 +34,5 @@ export class Field {
   select(){
     this.selected.visible = true;
   }
+  
 }
