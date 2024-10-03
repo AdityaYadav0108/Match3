@@ -7,16 +7,38 @@ import { TileFactory } from "./TileFactory";
 export class Board {
   constructor() {
     this.container = new PIXI.Container();
+
     this.fields = [];
     this.rows = App.config.board.rows;
     this.cols = App.config.board.cols;
     this.create();
-    this.adjustPosition();
+    this.ajustPosition();
   }
 
   create() {
     this.createFields();
     this.createTiles();
+  }
+
+  createTiles() {
+    this.fields.forEach((field) => this.createTile(field));
+  }
+
+  createTile(field) {
+    const tile = TileFactory.generate();
+    field.setTile(tile);
+    this.container.addChild(tile.sprite);
+
+    tile.sprite.interactive = true;
+    tile.sprite.on("pointerdown", () => {
+      this.container.emit("tile-touch-start", tile);
+    });
+
+    return tile;
+  }
+
+  getField(row, col) {
+    return this.fields.find((field) => field.row === row && field.col === col);
   }
 
   createFields() {
@@ -26,41 +48,23 @@ export class Board {
       }
     }
   }
-
   createField(row, col) {
     const field = new Field(row, col);
     this.fields.push(field);
     this.container.addChild(field.sprite);
   }
 
-  createTiles(){
-    console.log(this.fields)
-    this.fields.forEach(field => {
-      this.createTile(field);
-    })
-  }
-
-  createTile(field){
-    const tile = TileFactory.generate();
-    field.setTile(tile);
-    this.container.addChild(tile.sprite);
-    tile.sprite.interactive = true;
-    tile.sprite.on("pointerdown", () => {
-      this.container.emit("tile-tile-start", tile);
-    })
-  }
-  
-  adjustPosition() {
+  ajustPosition() {
     this.fieldSize = this.fields[0].sprite.width;
-    this.width = this.rows * this.fieldSize;
-    this.height = this.cols * this.fieldSize;
+    this.width = this.cols * this.fieldSize;
+    this.height = this.rows * this.fieldSize;
     this.container.x =
       (window.innerWidth - this.width) / 2 + this.fieldSize / 2;
     this.container.y =
       (window.innerHeight - this.height) / 2 + this.fieldSize / 2;
   }
 
-  swap(tile1, tile2){
+  swap(tile1, tile2) {
     const tile1Field = tile1.field;
     const tile2Field = tile2.field;
 
@@ -69,9 +73,5 @@ export class Board {
 
     tile2Field.tile = tile1;
     tile1.field = tile2Field;
-  }
-
-  getField(row, col){
-    return this.fields.find(field => field.row === row && field.col === col);
   }
 }

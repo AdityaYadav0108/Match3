@@ -5,14 +5,12 @@ export const Config = {
   loader: Tools.massiveRequire(
     require["context"]("./../../sprites/", true, /\.(mp3|png|jpe?g)$/)
   ),
-  scenes: {
-    Game: Game,
-  },
+  startScene: Game,
+  tilesColors: ["blue", "green", "orange", "red", "pink", "yellow"],
   board: {
-    rows: 6,
-    cols: 6,
+    rows: 8,
+    cols: 8,
   },
-  tileColors: ["blue", "green", "orange", "red", "pink", "yellow"],
   combinationRules: [
     [
       { col: 1, row: 0 },

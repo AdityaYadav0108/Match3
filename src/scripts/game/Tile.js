@@ -1,3 +1,4 @@
+import { gsap } from "gsap";
 import { App } from "../system/App";
 
 export class Tile {
@@ -28,26 +29,27 @@ export class Tile {
       });
     });
   }
-
-  isNeighbour(tile){
-    return Math.abs(this.field.row - tile.field.row) + Math.abs(this.field.col - tile.field.col) === 1; 
+  isNeighbour(tile) {
+    return (
+      Math.abs(this.field.row - tile.field.row) +
+        Math.abs(this.field.col - tile.field.col) ===
+      1
+    );
   }
 
-  remove(){
-    if(!this.sprite){
+  remove() {
+    if (!this.sprite) {
       return;
     }
-
     this.sprite.destroy();
     this.sprite = null;
-
-    if(this.field){
+    if (this.field) {
       this.field.tile = null;
       this.field = null;
     }
   }
 
-  fallDownTo(position, delay){
+  fallDownTo(position, delay) {
     return this.moveTo(position, 0.5, delay, "bounce.out");
   }
 }
