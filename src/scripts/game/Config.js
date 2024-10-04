@@ -6,7 +6,7 @@ export const Config = {
     require["context"]("./../../sprites/", true, /\.(mp3|png|jpe?g)$/)
   ),
   startScene: Game,
-  tiles: ["stopwatch", "donut", "icecream", "cracker", "candy3", "cake2"],
+  tilesConfig: ["stopwatch", "donut", "icecream", "cracker", "candy3", "cake2"],
   board: {
     rows: 8,
     cols: 8,
