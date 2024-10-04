@@ -5,3 +5,4 @@ local/
 build/
 releases/
 node_modules/
+.vercel
