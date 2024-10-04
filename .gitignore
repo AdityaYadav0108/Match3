@@ -3,6 +3,5 @@ library/
 temp/
 local/
 build/
-dist/
 releases/
 node_modules/
